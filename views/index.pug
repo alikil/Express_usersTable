@@ -1,0 +1,36 @@
+extends layout
+
+block content
+
+  table.table.table-light
+    thead.thead-dark
+      tr
+        th(scope="col") FirstName
+        th(scope="col") LastName
+        th(scope="col") Something
+        th(scope="col") Email
+        th(scope="col") Pass
+      tbody#addnewuser
+  button.btn.btn-primary.btn-lg.btn-block#addUser(type='submit') Add User
+
+  script(src='/javascripts/getFromDB.js')
+
+  script.
+    $(() => {
+      //let toadd = ["1","2","3","4","5"].map((add)=>{return `<td>${add}</td>`})
+      getFromDB().then((res)=>{
+        JSON.parse(res)
+        .map((res)=>{return Object.values(res)})
+        .map((res)=>{return res
+          .map((res)=>{return `<td>${res}</td>`})
+        })
+        .map((res)=>{$('#addnewuser').append(`<tr>${res}</tr>`)})
+      })
+      
+      
+      
+      $('#addUser').on('click', (button)=>{        
+        button.preventDefault()
+        
+        })
+    })
