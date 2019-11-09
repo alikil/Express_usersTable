@@ -1,0 +1,16 @@
+block EditTable
+    button.btn.btn-info.btn-lg.btn-block#edittable(type='submit') Edit Table
+
+    script.
+        $(()=>{
+            $('#edittable').one('click', function(event){
+                event.preventDefault()
+                $('#tablebody tr').append(`
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+                    </div>
+                </td>
+                `)
+            })
+        })

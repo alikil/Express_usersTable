@@ -1,7 +1,5 @@
 extends layout
-
 block content
-
   table.table.table-light
     thead.thead-dark
       tr
@@ -10,27 +8,22 @@ block content
         th(scope="col") Something
         th(scope="col") Email
         th(scope="col") Pass
-      tbody#addnewuser
+      tbody#tablebody
   button.btn.btn-primary.btn-lg.btn-block#addUser(type='submit') Add User
-
   script(src='/javascripts/getFromDB.js')
-
   script.
     $(() => {
       //let toadd = ["1","2","3","4","5"].map((add)=>{return `<td>${add}</td>`})
-      getFromDB().then((res)=>{
+      DBget("/table?table=main").then(res=>{
         JSON.parse(res)
         .map((res)=>{return Object.values(res)})
         .map((res)=>{return res
           .map((res)=>{return `<td>${res}</td>`})
         })
-        .map((res)=>{$('#addnewuser').append(`<tr>${res}</tr>`)})
+        .map((res)=>{$('#tablebody').append(`<tr>${res}</tr>`)})
       })
-      
-      
-      
-      $('#addUser').on('click', (button)=>{        
-        button.preventDefault()
-        
-        })
     })
+
+  include AddUser
+  include EditTable
+  

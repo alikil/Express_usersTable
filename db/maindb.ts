@@ -17,20 +17,17 @@ class sqlite {
             })
         })
     }
-    addUser(users: string[]){
-        const interer = `
-        INSERT INTO Users (FirstName, LastName, Something, Email, Pass) 
-        VALUES (?,?,?,?,?)
-        `
-        users
-        .map((res)=>{return Object.values(res)})
-        .map((res)=>{return res
-            .map((res)=>{return res})
-        })
-        .map((res)=>{
-            this.DB.run(interer,res, (err)=>{
+    addUser(users: string){
+        return new Promise((resolve, reject) => {
+            const interer = `
+            REPLACE INTO Users (FirstName, LastName, Something, Email, Pass) 
+            VALUES (?,?,?,?,?)
+            `
+            const add = JSON.parse(users)
+            this.DB.run(interer,add, (err)=>{
                 if (err) throw err;
                 console.log("ok");
+                resolve("ok")
             })
         })
     }

@@ -1,0 +1,40 @@
+block AddUserTable
+div#addUserBlock(style="display:none")
+    form.form-group#addform(action="" method="method")
+        div.form-group.row
+        label.col-sm-2.col-form-label(for="FirstName") FirstName
+        div.col-sm-10
+            input.form-control#FirstName(type="text" required)
+        div.form-group.row
+        label.col-sm-2.col-form-label(for="LastName") LastName
+        div.col-sm-10
+            input.form-control#LastName(type="text" required)
+        div.form-group.row
+        label.col-sm-2.col-form-label(for="Something") Something
+        div.col-sm-10
+            input.form-control#Something(type="text" required)
+        div.form-group.row
+        label.col-sm-2.col-form-label(for="Email") Email
+        div.col-sm-10
+            input.form-control#Email(type="text" required)
+        div.form-group.row
+        label.col-sm-2.col-form-label(for="Pass") Pass
+        div.col-sm-10
+            input.form-control#Pass(type="text" required)    
+        button.btn.btn-primary.btn-lg.btn-block#createUser(type='submit') Create user
+    script.
+        $(() => {            
+            $('#addUser').on('click', function(event){
+                event.preventDefault()
+                $('#addUserBlock').toggle(250)
+            })
+            $('#addform').on('submit', function(event){
+                event.preventDefault()
+                let newUsar = []                
+                $('form#addform :input[type=text]').each(function(){newUsar.push($(this).val())});
+                DBpost("/table?table=addUser",JSON.stringify(newUsar)).then(()=>{
+                    const user = newUsar.map((add)=>{return `<td>${add}</td>`})
+                    $('#tablebody tr:last-Child').after(`<tr>${user}</tr>`);
+                })               
+            })
+        })
